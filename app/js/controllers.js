@@ -27,6 +27,12 @@ angular.module('controllers', [])
              * @param item
              */
             $scope.addItem = function (item, index) {
+                $http.post('/api/db',item).then(function (success) {
+                    console.log(success);
+                },function (error) {
+                    console.log(error);
+                });
+
 
             /*    $http({
                     method: 'POST',

@@ -3,9 +3,12 @@
  */
 
 var express = require('express');
-var apiRouter = require('../api/apirouter');
+var databaseEndPoint = require('./endpoints/prescription');
+
 function route(app) {
-    app.use('/api',apiRouter)
+    app.post('/api/db',databaseEndPoint.setData);
+    app.get('/api/db',databaseEndPoint.getData);
+   // app.put('/api/db',databaseEndPoint.updateData);
 }
 
 module.exports = route;

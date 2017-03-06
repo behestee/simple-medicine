@@ -1,6 +1,6 @@
 <div>
     <div class="header">
-        <h1>Prescription generator</h1>
+        <h1> My Doctor Backend</h1>
         <p></p>
     </div>
     <div class="container">
@@ -23,7 +23,6 @@
                            <td>
                                <select name="duration" ng-model="item.duration"
                                        ng-options="duration.value as duration.title for duration in durations"
-                                       required="required"
                                >
                                </select>
                            </td>
@@ -33,7 +32,6 @@
                            <td>
                                <select name="degree" ng-model="item.degree"
                                        ng-options="duration.value as duration.title for duration in durations"
-                                       required="required"
                                >
                                </select>
                            </td>
@@ -42,19 +40,13 @@
                     <tr>
                         <td>Enter medicine</td>
                         <td>
-<!--
-                            <select name="medicine" ng-model="item.medicine"
-                                    ng-options="medicine.value as medicine.title for medicine in medicines"
-                                    required="required"
-                            >
-                            </select>
--->
+
                             <input type="text" placeholder="medicine name" name="medicine" ng-model="item.medicine">
                         </td>
                     </tr>
                     <tr>
                         <td>Treatment brief</td>
-                        <td><textarea name="treatmentBrief" ng-model="item.treatmentBrief" style="min-width: 550px;min-height: 150px"></textarea></td>
+                        <td><textarea name="description" ng-model="item.description   " style="min-width: 550px;min-height: 150px"></textarea></td>
                     </tr>
                 </table>
         <div class="action">
@@ -66,6 +58,8 @@
                 Update
             </button>
         </div>
+
+        {{item |json}}
     </fieldset>
 
 
