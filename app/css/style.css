@@ -1,0 +1,93 @@
+/**/
+body{
+    font-size: .9em;
+    font-family: "Helvetica Neue Light", "Lucida Grande", "Calibri", "Arial", sans-serif;
+}
+
+legend {
+    display: block;
+    padding-left: 2px;
+    padding-right: 2px;
+    border: none;
+}
+
+table {
+    border-collapse: collapse;
+    width: 100%;
+    margin-top: 10px;
+}
+
+td, th {
+    border: 1px solid #dddddd;
+    text-align: left;
+    padding: 8px;
+}
+
+.img {
+    height: 20px;
+    width: 20px;
+}
+
+select {
+    border: 1px solid #dddddd;
+    padding: 2px;
+}
+
+label {
+    margin: 0 5px;
+    display: inline-block;
+    float: left;
+}
+
+.header {
+    border: 1px solid #e1e1e1;
+    background-color: #e1e1e1;
+    padding: 10px;
+}
+
+.container {
+    border: 2px solid #e1e1e1;
+    padding: 10px;
+}
+
+.footer {
+    background-color: #e1e1e1;
+    padding: 10px;
+}
+
+.action button{
+    float: right;
+}
+
+th{
+    background-color: #e1e1e1;
+    border: 1px solid whitesmoke;
+}
+
+table, td, tr{
+    border: 1px solid #e1e1e1;
+}
+
+.title{
+    background-color: #e1e1e1;
+    padding: 10px;
+    margin: 0px;
+}
+
+.block{
+    border: 2px solid #e1e1e1;
+    padding: 10px;
+    margin-bottom: 20px;
+}
+
+.button-hint{
+    text-align: right;
+}
+
+button{
+    padding: 5px 10px;
+    margin-left: 10px;
+}
+.error{
+    color: red;
+}

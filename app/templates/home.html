@@ -1,0 +1,106 @@
+<div>
+    <div class="header">
+        <h1>Prescription generator</h1>
+        <p></p>
+    </div>
+    <div class="container">
+        <br clear="all"/>
+        <form name="itemGenForm">
+            <h2 class="title">Prescription Form</h2>
+            <div class="block">
+                <!--Item Form-->
+
+
+    <fieldset>
+        <legend>Disease</legend>
+                <table>
+                       <tr>
+                           <td>Disease name</td>
+                           <td><input name="diseaseName" placeholder="disease name" type="text" ng-model="item.diseaseName"></td>
+                       </tr>
+                        <tr>
+                           <td>Duration</td>
+                           <td>
+                               <select name="duration" ng-model="item.duration"
+                                       ng-options="duration.value as duration.title for duration in durations"
+                                       required="required"
+                               >
+                               </select>
+                           </td>
+                       </tr>
+                    <tr>
+                           <td>Degree</td>
+                           <td>
+                               <select name="degree" ng-model="item.degree"
+                                       ng-options="duration.value as duration.title for duration in durations"
+                                       required="required"
+                               >
+                               </select>
+                           </td>
+                       </tr>
+
+                    <tr>
+                        <td>Enter medicine</td>
+                        <td>
+<!--
+                            <select name="medicine" ng-model="item.medicine"
+                                    ng-options="medicine.value as medicine.title for medicine in medicines"
+                                    required="required"
+                            >
+                            </select>
+-->
+                            <input type="text" placeholder="medicine name" name="medicine" ng-model="item.medicine">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Treatment brief</td>
+                        <td><textarea name="treatmentBrief" ng-model="item.treatmentBrief" style="min-width: 550px;min-height: 150px"></textarea></td>
+                    </tr>
+                </table>
+        <div class="action">
+            <button ng-if="selectedItemIndex == null" class="button button--light"
+                    ng-click="itemGenForm.$dirty && itemGenForm.$valid && addItem(item)"> Add
+            </button>
+            <button ng-if="selectedItemIndex != null" class="button button--light"
+                    ng-click="itemGenForm.$dirty && itemGenForm.$valid && addItem(item,selectedItemIndex)">
+                Update
+            </button>
+        </div>
+    </fieldset>
+
+
+                <!--Item Table-->
+
+                <table>
+                    <tr>
+                        <th>Disease Name</th>
+                        <th>Duration</th>
+                        <th>medicine</th>
+                        <th>Brief</th>
+                        <th>Edit/Delete </th>
+
+
+                    <tr ng-if="itemList.length == 0">
+                        <td colspan="8">Not item added</td>
+                    </tr>
+
+                    <tr ng-if="itemList.length > 0" ng-repeat="itemx in itemList track by $index">
+                        <td>{{itemx.diseaseName}}</td>
+
+                        <td>{{itemx.duration}}</td>
+                        <td>{{itemx.medicine}}</td>
+                        <td>{{itemx.treatmentBrief}}</td>
+
+                        <td>
+                            <input ng-click="editItem($index)" class="img" type="image" src="img/edit.png"/>
+                            <input ng-click="deleteItem($index)" class="img" type="image" src="img/delete.png"/>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </form>
+    </div>
+
+
+
+</div>
