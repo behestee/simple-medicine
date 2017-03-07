@@ -14,26 +14,26 @@
     <fieldset>
         <legend>Disease</legend>
                 <table>
-                       <tr>
-                           <td>Disease name</td>
-                           <td><input name="diseaseName" placeholder="disease name" type="text" ng-model="item.diseaseName"></td>
-                       </tr>
+
                         <tr>
-                           <td>Duration</td>
+                           <td>Age</td>
                            <td>
-                               <select name="duration" ng-model="item.duration"
-                                       ng-options="duration.value as duration.title for duration in durations"
+                               <select name="age" ng-model="item.age"
+                                       ng-options="age.value as age.title for age in age"
                                >
                                </select>
                            </td>
                        </tr>
                     <tr>
-                           <td>Degree</td>
+                           <td>Feelings</td>
                            <td>
-                               <select name="degree" ng-model="item.degree"
-                                       ng-options="duration.value as duration.title for duration in durations"
-                               >
-                               </select>
+                               <input type="text" placeholder="feelings" name="feelings" ng-model="item.feelings">
+                           </td>
+                       </tr>
+                    <tr>
+                           <td>Problem</td>
+                           <td>
+                               <input type="text" name="problem" placeholder="problem" ng-model="item.problem">
                            </td>
                        </tr>
 
@@ -67,11 +67,12 @@
 
                 <table>
                     <tr>
-                        <th>Disease Name</th>
-                        <th>Duration</th>
-                        <th>medicine</th>
-                        <th>Brief</th>
-                        <th>Edit/Delete </th>
+                        <th>Age</th>
+                        <th>Feelings</th>
+                        <th>Problem</th>
+                        <th>Medicine</th>
+                        <th>Description</th>
+                        <th>Edit/delete</th>
 
 
                     <tr ng-if="itemList.length == 0">
@@ -79,11 +80,12 @@
                     </tr>
 
                     <tr ng-if="itemList.length > 0" ng-repeat="itemx in itemList track by $index">
-                        <td>{{itemx.diseaseName}}</td>
+                        <td>{{itemx.age}}</td>
 
-                        <td>{{itemx.duration}}</td>
+                        <td>{{itemx.feelings}}</td>
+                        <td>{{itemx.problem}}</td>
                         <td>{{itemx.medicine}}</td>
-                        <td>{{itemx.treatmentBrief}}</td>
+                        <td>{{itemx.description}}</td>
 
                         <td>
                             <input ng-click="editItem($index)" class="img" type="image" src="img/edit.png"/>

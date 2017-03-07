@@ -17,46 +17,27 @@ disease.getData = function (req, res) {
      'Description': 'please take your medicine properly, if any more problem then contact with consultant'
      }*/
     // console.log(prescription)
-     res.json("hey");
-
-
-    console.log('request URL:', req.originalUrl);
+    // res.json("hey");
     diseaseModel.getPrescription(function (error, prescription) {
         if (error) {
             throw error;
         }
-        res.json(prescription)
+        res.json(prescription);
+       // console.log(prescription);
     })
 
 };
 
 disease.setData = function (req, res) {
-    req.send('hello')
+    //req.send('hello')
     var params = req.body;
-    console.log(data);
+    console.log(params);
     diseaseModel.setPrescription(params, function (error, insertData) {
         if (error) {
             throw error;
         }
         res.json(insertData)
     });
-
-
-    /*  var callback = function () {
-     diseaseModel.getPrescription(params, function (error, row) {
-     res.json(row);
-     })
-     }
-     if(params.action == 'add'){
-     diseaseModel.setPrescription(params.data,callback);
-     } else if(params.action == 'get'){
-     diseaseModel.getPrescription(params.data,callback);
-     }else if(params.action == 'delete'){
-     diseaseModel.deletePrescription(params.data,callback);
-     }else if(params.action == 'update'){
-     diseaseModel.updatePrescription(params.data,callback)
-     }*/
-
 
 };
 

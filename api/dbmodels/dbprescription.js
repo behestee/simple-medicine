@@ -3,25 +3,29 @@
  */
 var db = require('../../config/sqlitedb.js');
 var tableName ='prescription' ;
-var recordStructure = [ 'diseaseName', 'duration', 'degree', 'medicine','description'];
+var diseaseStructure = [ "age", "feelings", "problem", "medicine","description"];
 var diseaseModel = {};
 
 diseaseModel.setPrescription= function (data, callback) {
-    db.run("INSERT into prescription('"+recordStructure.join('","')+"') VALUES (?,?,?,?,?)",data);
+
+    console.log(diseaseStructure);
+    console.log(data);
+
+    var insertData = [];
+    for(var i in diseaseStructure){
+        var item  = diseaseStructure[i];
+        insertData.push(data[item]);
+    }
 
 
-
-
+    db.run("INSERT into prescription(" + diseaseStructure.join(",") + ") VALUES (?,?,?,?,?)",insertData,callback);
+   // db.run("INSERT into prescription(age,feelings) VALUES (?,?)",["dddd", "hhgg"],callback);
 };
 
 diseaseModel.getPrescription = function (callback) {
-    db.all("SELECT ID "+ recordStructure.join(",")+ " FROM "+ tableName,callback);
+   // db.all("SELECT ID "+ diseaseStructure.join(",")+ " FROM "+ tableName,callback);
+    db.all("SELECT * FROM "+ tableName,callback);
 }
 
-
-diseaseModel.getAll = function (callback) {
-
-    db.all("SELECT id, " + recordStructure.join(", ") + " FROM " + tableName, callback);
-};
 
 module.exports = diseaseModel;

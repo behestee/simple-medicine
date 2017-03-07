@@ -7,26 +7,21 @@ angular.module('controllers', [])
             $scope.item = {};
 
             // static duration
-            $scope.durations = [
-                {'title': '1-3', 'value': '1-3'},
-                {'title': '4-7', 'value': '7-9'}
+            $scope.age = [
+                {'title': '1-5', 'value': '1-5'},
+                {'title': '6-12', 'value': '6-12'},
+                {'title': '13-20', 'value': '13-20'},
+                {'title': '20-30', 'value': '20-30'}
             ];
 
-            $scope.item.duration = $scope.durations[0].value;
+            $scope.item.age = $scope.age[0].value;
 
-       /*     $scope.medicines = [
-                {'title':'napa',     'value':'napa'},
-                {'title':'parasitamol','value':'parasitamol'},
-                {'title':'provair 10' ,'value':'provair 10'},
-            ];
-            // default value
-            $scope.item.medicine = $scope.medicines[0].value;
-*/
             /**
              * Function for adding items to item list
              * @param item
              */
-            $scope.addItem = function (item, index) {
+            $scope.addItem = function (item) {
+
                 $http.post('/api/db',item).then(function (success) {
                     console.log(success);
                 },function (error) {
@@ -47,12 +42,6 @@ angular.module('controllers', [])
                 }, function errorCallback(response) {
                     console.log(response)
                 });*/
-
-
-
-
-
-
 
 
                 console.log(item);
