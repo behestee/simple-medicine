@@ -54,7 +54,7 @@
                     ng-click="itemGenForm.$dirty && itemGenForm.$valid && addItem(item)"> Add
             </button>
             <button ng-if="selectedItemIndex != null" class="button button--light"
-                    ng-click="itemGenForm.$dirty && itemGenForm.$valid && addItem(item,selectedItemIndex)">
+                    ng-click="itemGenForm.$dirty && itemGenForm.$valid && editPrescription(item)">
                 Update
             </button>
         </div>
@@ -75,17 +75,16 @@
                         <th>Edit/delete</th>
 
 
-                    <tr ng-if="itemList.length == 0">
+                    <tr ng-if="prescriptions.length == 0">
                         <td colspan="8">Not item added</td>
                     </tr>
 
-                    <tr ng-if="itemList.length > 0" ng-repeat="itemx in itemList track by $index">
-                        <td>{{itemx.age}}</td>
-
-                        <td>{{itemx.feelings}}</td>
-                        <td>{{itemx.problem}}</td>
-                        <td>{{itemx.medicine}}</td>
-                        <td>{{itemx.description}}</td>
+                    <tr ng-if="prescriptions>0" ng-repeat="prescription in prescriptions track by $index">
+                        <td>{{prescription.age}}</td>
+                        <td>{{prescription.feelings}}</td>
+                        <td>{{prescription.problem}}</td>
+                        <td>{{prescription.medicine}}</td>
+                        <td>{{prescription.description}}</td>
 
                         <td>
                             <input ng-click="editItem($index)" class="img" type="image" src="img/edit.png"/>

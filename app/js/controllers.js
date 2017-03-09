@@ -1,8 +1,7 @@
-
 angular.module('controllers', [])
 
-    .controller('homeCtrl', ['$scope', '$stateParams','$http','$window','localStorageFactory',
-        function ($scope, $stateParams, $http, $window,localStorageFactory) {
+    .controller('homeCtrl', ['$scope', '$stateParams', '$http', '$window', 'localStorageFactory',
+        function ($scope, $stateParams, $http, $window, localStorageFactory) {
 
             $scope.item = {};
 
@@ -22,39 +21,31 @@ angular.module('controllers', [])
              */
             $scope.addItem = function (item) {
 
-                $http.post('/api/db',item).then(function (success) {
+                $http.post('/api/db', item).then(function (success) {
                     console.log(success);
-                },function (error) {
+                }, function (error) {
                     console.log(error);
                 });
 
-
-            /*    $http({
-                    method: 'POST',
-                    url: '/api/details',
-                    data: {
-                        'tableName': tableName,
-                        'action': action,
-                        'data': item
-                    }
-                }).then(function successCallback(response) {
-                  console.log(response);
-                }, function errorCallback(response) {
-                    console.log(response)
-                });*/
-
-
-                console.log(item);
-                if (typeof index == 'undefined') {
-                    localStorageFactory.insert(item);
-                }
+                // console.log(item);
+                // if (typeof index == 'undefined') {
+                //     localStorageFactory.insert(item);
+                // }
             };
 
-            localStorageFactory.get().then(function (data) {
-                $scope.itemList = data;
-                console.log($scope.itemList);
-            })
+                localStorageFactory.get().then(function (data) {
+                    $scope.itemList = data;
+                    console.log($scope.itemList);
+                });
 
+                $http.get('/api/db').then(function (prescriptions) {
+                    var data = prescriptions.data;
+                    console.log( data);
+                    // for (var i in data){
+                    //  $scope.prescriptions = data[i];
+                    //  console.log($scope.prescriptions);
+                    // }
+                });
 
             /**
              * edit item
@@ -62,8 +53,19 @@ angular.module('controllers', [])
              */
             $scope.editItem = function (index) {
                 $scope.selectedItemIndex = index;
-                $scope.item = $scope.itemList[index];
+                $scope.item = $scope.prescriptions[index];
             };
+
+            $scope.editPrescription = function (data) {
+                alert("test")
+                console.log("data from controller ", data);
+                $http.put('/api/db/', data).then(function (success) {
+                    console.log("success" + success);
+                }, function (error) {
+                    console.log("error occured " + error);
+                });
+            };
+
 
             /**
              * delete item
@@ -72,7 +74,6 @@ angular.module('controllers', [])
             $scope.deleteItem = function (index) {
                 localStorageFactory.delete(index)
             };
-
 
 
         }]);

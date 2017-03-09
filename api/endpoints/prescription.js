@@ -44,19 +44,36 @@ disease.setData = function (req, res) {
 disease.updateData = function (req, res) {
 
     var id = req.params.id;
+    console.log(id);
     var prescription = req.body;
-    prescription.findById(id, function (error, data) {
+
+    console.log("prescription form model ",prescription);
+
+    diseaseModel.putPrescription(id,function (error, prescriptionData) {
+        if(error){
+            throw error;
+        }
+        res.json(prescriptionData);
+        console.log(prescriptionData);
+    });
+
+
+ /*   prescription.findById(id, function (error, data) {
         data.DiseaseName = req.body.DiseaseName;
         data.Duration = req.body.Duration;
         data.Medicine = req.body.Medicine;
         data.Brief = req.body.Brief;
-    });
-    prescription.save(function (error) {
+    });*/
+
+
+
+
+  /*  prescription.save(function (error) {
         if (error)
             res.send(error);
 
         res.json({message: 'prescription updated!'});
-    })
+    })*/
 };
 disease.delete = function (req, res) {
     var id = req.params.id;
