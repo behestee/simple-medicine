@@ -1,0 +1,31 @@
+<div>
+    <div class="header">
+        <h1> Problems</h1>
+        <p></p>
+    </div>
+    <fieldset>
+        <legend>Problems</legend>
+        <table>
+
+            <tr>
+                <td>Problem</td>
+                <td>
+                    <input type="text" placeholder="enter your problem" ng-model="item.problem" name="problem">
+                </td>
+            </tr>
+        </table>
+        <div class="action">
+            <button ng-if="selectedItemIndex == null" class="button button--light"
+                    ng-click="itemGenForm.$dirty && itemGenForm.$valid && addItem(item)"> Add
+            </button>
+            <button ng-if="selectedItemIndex != null" class="button button--light"
+                    ng-click="editPrescription(item)">
+                Update
+            </button>
+        </div>
+
+        {{item |json}}
+    </fieldset>
+
+
+</div>

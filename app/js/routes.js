@@ -14,6 +14,16 @@ angular.module('routes', [])
                 templateUrl: 'templates/home.html',
                 controller: 'homeCtrl'
             })
+            .state('feelings', {
+                url: '/feelings',
+                templateUrl: 'templates/feelings.html',
+                controller: 'feelingsCtrl'
+            })
+            .state('problems', {
+                url: '/problems',
+                templateUrl: 'templates/problems.html',
+                controller: 'problemsCtrl'
+            })
 
 
 

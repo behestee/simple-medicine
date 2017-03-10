@@ -3,10 +3,13 @@
         <h1> My Doctor Backend</h1>
         <p></p>
     </div>
+
+
     <div class="container">
         <br clear="all"/>
         <form name="itemGenForm">
             <h2 class="title">Prescription Form</h2>
+
             <div class="block">
                 <!--Item Form-->
 
@@ -54,7 +57,7 @@
                     ng-click="itemGenForm.$dirty && itemGenForm.$valid && addItem(item)"> Add
             </button>
             <button ng-if="selectedItemIndex != null" class="button button--light"
-                    ng-click="itemGenForm.$dirty && itemGenForm.$valid && editPrescription(item)">
+                    ng-click="editPrescription(item)">
                 Update
             </button>
         </div>
@@ -79,7 +82,7 @@
                         <td colspan="8">Not item added</td>
                     </tr>
 
-                    <tr ng-if="prescriptions>0" ng-repeat="prescription in prescriptions track by $index">
+                    <tr  ng-repeat="prescription in prescriptions">
                         <td>{{prescription.age}}</td>
                         <td>{{prescription.feelings}}</td>
                         <td>{{prescription.problem}}</td>
@@ -88,7 +91,7 @@
 
                         <td>
                             <input ng-click="editItem($index)" class="img" type="image" src="img/edit.png"/>
-                            <input ng-click="deleteItem($index)" class="img" type="image" src="img/delete.png"/>
+                            <input ng-click="deleteItem(prescription)" class="img" type="image" src="img/delete.png"/>
                         </td>
                     </tr>
                 </table>

@@ -1,7 +1,7 @@
 angular.module('controllers', [])
 
-    .controller('homeCtrl', ['$scope', '$stateParams', '$http', '$window', 'localStorageFactory',
-        function ($scope, $stateParams, $http, $window, localStorageFactory) {
+    .controller('homeCtrl', ['$scope', '$stateParams', '$http', '$window',
+        function ($scope, $stateParams, $http, $window) {
 
             $scope.item = {};
 
@@ -21,7 +21,7 @@ angular.module('controllers', [])
              */
             $scope.addItem = function (item) {
 
-                $http.post('/api/db', item).then(function (success) {
+                $http.post('/api/db/prescription', item).then(function (success) {
                     console.log(success);
                 }, function (error) {
                     console.log(error);
@@ -33,17 +33,16 @@ angular.module('controllers', [])
                 // }
             };
 
-                localStorageFactory.get().then(function (data) {
-                    $scope.itemList = data;
-                    console.log($scope.itemList);
-                });
 
-                $http.get('/api/db').then(function (prescriptions) {
+                $http.get('/api/db/prescription').then(function (prescriptions) {
                     var data = prescriptions.data;
+                    $scope.prescriptions = data;
                     console.log( data);
-                    // for (var i in data){
-                    //  $scope.prescriptions = data[i];
-                    //  console.log($scope.prescriptions);
+
+                    // if i want all data for each column
+                    // for(var i in $scope.prescriptions){
+                    //     var item = $scope.prescriptions[i];
+                    //     console.log(item.age);
                     // }
                 });
 
@@ -57,23 +56,31 @@ angular.module('controllers', [])
             };
 
             $scope.editPrescription = function (data) {
-                alert("test")
                 console.log("data from controller ", data);
-                $http.put('/api/db/', data).then(function (success) {
+                $http.put('/api/db/prescription', data).then(function (success) {
                     console.log("success" + success);
                 }, function (error) {
-                    console.log("error occured " + error);
+                    console.log(error);
                 });
             };
-
-
             /**
              * delete item
              * @param index
              */
-            $scope.deleteItem = function (index) {
-                localStorageFactory.delete(index)
+            $scope.deleteItem = function (data) {
+                console.log(data);
+                $http.delete('/api/db/prescription'+ data.id).then(function (success) {
+                    console.log("delete request success ",success);
+                },function (error) {
+                    console.log("Delete request failure ",error);
+                })
             };
 
 
-        }]);
+        }])
+    .controller('feelingsCtrl',['$scope',function ($scope) {
+
+    }])
+    .controller('problemsCtrl',['$scope',function ($scope) {
+
+    }]);

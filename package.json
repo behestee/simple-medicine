@@ -1,7 +1,7 @@
 {
   "name": "appdoctor",
   "private": true,
-  "version": "0.0.0",
+  "version": "1.1.1",
   "description": "Apps for digital treatment",
   "repository": "",
   "license": "MIT",
@@ -15,7 +15,7 @@
     "update-deps": "npm update",
     "postupdate-deps": "bower update",
     "prestart": "npm install",
-    "start": "http-server -a localhost -p 8000 -c-1 ./app"
+    "start": "server.js"
   },
   "dependencies": {
     "body-parser": "~1.4.2",
