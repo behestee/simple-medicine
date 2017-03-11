@@ -1,50 +1,60 @@
 angular.module('controllers', [])
 
-    .controller('homeCtrl', ['$scope', '$stateParams', '$http', '$window',
-        function ($scope, $stateParams, $http, $window) {
+    .controller('homeCtrl', ['$scope', '$stateParams', '$http', 'DataFactory',
+        function ($scope, $stateParams, $http, DataFactory) {
 
             $scope.item = {};
-
-            // static duration
+            // static age duration for taken medicine
             $scope.age = [
                 {'title': '1-5', 'value': '1-5'},
                 {'title': '6-12', 'value': '6-12'},
                 {'title': '13-20', 'value': '13-20'},
-                {'title': '20-30', 'value': '20-30'}
+                {'title': '20-30', 'value': '20-30'},
+                {'title': '31-50', 'value': '31-50'}
             ];
-
-            $scope.item.age = $scope.age[0].value;
+            console.log($scope.age)
+            $scope.item.age = $scope.age[0].value; // default age
 
             /**
-             * Function for adding items to item list
+             * Get feelings data form Feelings API
+             * show feelings dropdown for Prescription
+             */
+            DataFactory.getFeelingsData().then(function (feelings) {
+                $scope.feelings = feelings;
+                console.log(feelings[0].feeling)
+
+            });
+
+
+            /**
+             * Get problems data form Problems API
+             * show problems dropdown for Prescription
+             */
+            DataFactory.getProblemData().then(function (problems) {
+                console.log(problems)
+                $scope.problems = problems;
+            });
+
+
+            /**
+             * Function for adding items to API
              * @param item
              */
-            $scope.addItem = function (item) {
-
-                $http.post('/api/db/prescription', item).then(function (success) {
+            $scope.addPrescription = function (item) {
+                DataFactory.postPrescriptionData(item).then(function (success) {
                     console.log(success);
-                }, function (error) {
-                    console.log(error);
+                    $scope.item.medicine="";
+                    $scope.item.description="";
                 });
-
-                // console.log(item);
-                // if (typeof index == 'undefined') {
-                //     localStorageFactory.insert(item);
-                // }
             };
 
-
-                $http.get('/api/db/prescription').then(function (prescriptions) {
-                    var data = prescriptions.data;
-                    $scope.prescriptions = data;
-                    console.log( data);
-
-                    // if i want all data for each column
-                    // for(var i in $scope.prescriptions){
-                    //     var item = $scope.prescriptions[i];
-                    //     console.log(item.age);
-                    // }
-                });
+            /**
+             * get Prescriptions form API
+             */
+            DataFactory.getPrescriptionData().then(function (prescription) {
+                console.log(prescription)
+                $scope.prescriptions = prescription;
+            });
 
             /**
              * edit item
@@ -55,32 +65,146 @@ angular.module('controllers', [])
                 $scope.item = $scope.prescriptions[index];
             };
 
+            /**
+             * edit prescription
+             * @param data is a object of each prescription is select
+             */
             $scope.editPrescription = function (data) {
-                console.log("data from controller ", data);
-                $http.put('/api/db/prescription', data).then(function (success) {
-                    console.log("success" + success);
-                }, function (error) {
-                    console.log(error);
-                });
+                DataFactory.putPrescriptionData(data).then(function (response) {
+                    console.log("update req success ", response);
+                }, function (response) {
+                    console.log("update req failed ", response.data);
+                })
             };
+
+
             /**
              * delete item
-             * @param index
+             * @param data
              */
-            $scope.deleteItem = function (data) {
-                console.log(data);
-                $http.delete('/api/db/prescription'+ data.id).then(function (success) {
-                    console.log("delete request success ",success);
-                },function (error) {
-                    console.log("Delete request failure ",error);
+            $scope.deletePrescription = function (data) {
+                DataFactory.deletePrescriptionData(data).then(function (response) {
+                    console.log("delete success ", response);
+                }, function (response) {
+                    console.log("delete failed ", response.data);
                 })
             };
 
 
         }])
-    .controller('feelingsCtrl',['$scope',function ($scope) {
+    .controller('feelingsCtrl', ['$scope', '$stateParams', '$http', 'DataFactory',
+        function ($scope, $stateParams, $http, DataFactory) {
 
-    }])
-    .controller('problemsCtrl',['$scope',function ($scope) {
 
-    }]);
+            /**
+             * Function for adding items to API
+             * @param feelings
+             */
+            $scope.addFeeling = function (feelings) {
+                DataFactory.postFeelingsData(feelings).then(function (success) {
+                    console.log("successful   add request to db", success);
+                    $scope.item.feeling = "";
+                }, function (error) {
+                    console.log("error", error)
+                });
+            };
+            /**
+             * get Feelings data form API
+             */
+            DataFactory.getFeelingsData().then(function (feelings) {
+                console.log(feelings)
+                $scope.feelings = feelings;
+            });
+
+            /**
+             * edit item
+             * @param index
+             */
+            $scope.editItem = function (index) {
+                $scope.selectedItemIndex = index;
+                $scope.item = $scope.feelings[index];
+            };
+
+            /**
+             * edit feelings
+             * @param data
+             */
+            $scope.editFeeling = function (data) {
+                DataFactory.putFeelingsData(data).then(function (success) {
+                    console.log("successfully update request send to db ", success);
+                }, function (error) {
+                    console.log("can't send update request to db ", error);
+                })
+            };
+
+
+            /**
+             * delete feelings
+             * @param data
+             */
+            $scope.deleteFeeling = function (data) {
+                DataFactory.deleteFeelingsData(data).then(function (response) {
+                    console.log("delete req success ", response);
+                }, function (response) {
+                    console.log("delete req failed ", response.data);
+                })
+            };
+
+
+        }])
+    .controller('problemsCtrl', ['$scope', '$stateParams', '$http', 'DataFactory',
+        function ($scope, $stateParams, $http, DataFactory) {
+            /**
+             * Function for adding items to API
+             * @param item
+             */
+            $scope.addProblem = function (item) {
+                DataFactory.postProblemsData(item).then(function (success) {
+                    console.log(success);
+                    $scope.item.problem = "";
+
+                },function (error) {
+                    console.log(error)
+                });
+            };
+            /**
+             * get Prescriptions form API
+             */
+            DataFactory.getProblemData().then(function (problems) {
+                console.log(problems)
+                $scope.problems = problems;
+            });
+
+            /**
+             * edit item
+             * @param index
+             */
+            $scope.editItem = function (index) {
+                $scope.selectedItemIndex = index;
+                $scope.item = $scope.problems[index];
+            };
+
+            $scope.editProblem = function (data) {
+                DataFactory.putProblemsData(data).then(function (success) {
+                    console.log("edit request success", success);
+                }, function (error) {
+                    console.log("edit request failed", error);
+                });
+            };
+
+
+            /**
+             * delete item
+             * @param data
+             */
+            $scope.deleteProblem = function (data) {
+                DataFactory.deleteProblemsData(data).then(function (response) {
+                    console.log("delete success ", response);
+                }, function (response) {
+                    console.log("delete failed ", response.data);
+
+                })
+            };
+
+
+        }]);

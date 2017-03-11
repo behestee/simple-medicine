@@ -16,16 +16,35 @@
         </table>
         <div class="action">
             <button ng-if="selectedItemIndex == null" class="button button--light"
-                    ng-click="itemGenForm.$dirty && itemGenForm.$valid && addItem(item)"> Add
+                    ng-click=" addFeeling(item)"> Add
             </button>
             <button ng-if="selectedItemIndex != null" class="button button--light"
-                    ng-click="editPrescription(item)">
+                    ng-click="editFeeling(item)">
                 Update
             </button>
         </div>
 
+
         {{item |json}}
     </fieldset>
 
+    <table>
+        <tr>
+            <th>Feelings</th>
+            <th>Edit/delete</th>
+
+
+        <tr ng-if="feelings.length == 0">
+            <td colspan="8">Not item added</td>
+        </tr>
+
+        <tr ng-repeat="feeling in feelings">
+            <td>{{feeling.feeling}}</td>
+            <td>
+                <input ng-click="editItem($index)" class="img" type="image" src="img/edit.png"/>
+                <input ng-click="deleteFeeling(feeling)" class="img" type="image" src="img/delete.png"/>
+            </td>
+        </tr>
+    </table>
 
 </div>

@@ -14,56 +14,64 @@
                 <!--Item Form-->
 
 
-    <fieldset>
-        <legend>Disease</legend>
-                <table>
+                <fieldset>
+                    <legend>Disease</legend>
+                    <table>
 
                         <tr>
-                           <td>Age</td>
-                           <td>
-                               <select name="age" ng-model="item.age"
-                                       ng-options="age.value as age.title for age in age"
-                               >
-                               </select>
-                           </td>
-                       </tr>
-                    <tr>
-                           <td>Feelings</td>
-                           <td>
-                               <input type="text" placeholder="feelings" name="feelings" ng-model="item.feelings">
-                           </td>
-                       </tr>
-                    <tr>
-                           <td>Problem</td>
-                           <td>
-                               <input type="text" name="problem" placeholder="problem" ng-model="item.problem">
-                           </td>
-                       </tr>
+                            <td>Age</td>
+                            <td>
+                                <select name="age" ng-model="item.age"
+                                        ng-options="age.value as age.value for age in age"
+                                >
+                                </select>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Feelings</td>
+                            <td>
+                                <select name="feeling" ng-model="item.feeling"
+                                        ng-options="feeling.feeling as feeling.feeling for feeling in feelings"
+                                >
+                                </select>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Problem</td>
+                            <td>
+                                <select name="problem" ng-model="item.problem"
+                                        ng-options="problem.problem as problem.problem for problem in problems"
+                                >
+                                </select>
 
-                    <tr>
-                        <td>Enter medicine</td>
-                        <td>
+                            </td>
+                        </tr>
 
-                            <input type="text" placeholder="medicine name" name="medicine" ng-model="item.medicine">
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>Treatment brief</td>
-                        <td><textarea name="description" ng-model="item.description   " style="min-width: 550px;min-height: 150px"></textarea></td>
-                    </tr>
-                </table>
-        <div class="action">
-            <button ng-if="selectedItemIndex == null" class="button button--light"
-                    ng-click="itemGenForm.$dirty && itemGenForm.$valid && addItem(item)"> Add
-            </button>
-            <button ng-if="selectedItemIndex != null" class="button button--light"
-                    ng-click="editPrescription(item)">
-                Update
-            </button>
-        </div>
+                        <tr>
+                            <td>Enter medicine</td>
+                            <td>
 
-        {{item |json}}
-    </fieldset>
+                                <input type="text" placeholder="medicine name" name="medicine" ng-model="item.medicine">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Treatment brief</td>
+                            <td><textarea name="description" ng-model="item.description   "
+                                          style="min-width: 550px;min-height: 150px"></textarea></td>
+                        </tr>
+                    </table>
+                    <div class="action">
+                        <button ng-if="selectedItemIndex == null" class="button button--light"
+                                ng-click="itemGenForm.$dirty && itemGenForm.$valid && addPrescription(item)"> Add
+                        </button>
+                        <button ng-if="selectedItemIndex != null" class="button button--light"
+                                ng-click="editPrescription(item)">
+                            Update
+                        </button>
+                    </div>
+
+                    {{item |json}}
+                </fieldset>
 
 
                 <!--Item Table-->
@@ -82,23 +90,23 @@
                         <td colspan="8">Not item added</td>
                     </tr>
 
-                    <tr  ng-repeat="prescription in prescriptions">
+                    <tr ng-repeat="prescription in prescriptions">
                         <td>{{prescription.age}}</td>
-                        <td>{{prescription.feelings}}</td>
+                        <td>{{prescription.feeling}}</td>
                         <td>{{prescription.problem}}</td>
                         <td>{{prescription.medicine}}</td>
                         <td>{{prescription.description}}</td>
 
                         <td>
                             <input ng-click="editItem($index)" class="img" type="image" src="img/edit.png"/>
-                            <input ng-click="deleteItem(prescription)" class="img" type="image" src="img/delete.png"/>
+                            <input ng-click="deletePrescription(prescription)" class="img" type="image"
+                                   src="img/delete.png"/>
                         </td>
                     </tr>
                 </table>
             </div>
         </form>
     </div>
-
 
 
 </div>

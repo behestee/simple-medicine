@@ -3,10 +3,11 @@
  */
 var db = require('../../config/sqlitedb.js');
 var tableName = 'prescription';
-var diseaseStructureColumns = ["age", "feelings", "problem", "medicine", "description"];
+var diseaseStructureColumns = ["age", "feeling", "problem", "medicine", "description"];
 var diseaseModel = {};
 
 diseaseModel.setPrescription = function (data, callback) {
+    console.log("form db ", data)
     var insertData = diseaseModel.columnDataProcess(diseaseStructureColumns, data);
     db.run("INSERT into prescription(" + diseaseStructureColumns.join(",") + ") VALUES (?,?,?,?,?)", insertData, callback);
 };
@@ -18,8 +19,8 @@ diseaseModel.putPrescription = function (id, disease, callback) {
     var updateData = diseaseModel.columnDataProcess(diseaseStructureColumns, disease);
     db.run("UPDATE prescription SET " + diseaseStructureColumns.join(" = ?, ") + " = ? WHERE ID = " + id, updateData, callback);
 };
-diseaseModel.deletePrescription = function (id,callback) {
-    console.log("form db",id);
+diseaseModel.deletePrescription = function (id, callback) {
+    console.log("form db", id);
     db.run("DELETE FROM prescription WHERE ID =? ", [id], callback);
 };
 
