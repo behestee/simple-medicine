@@ -43,19 +43,22 @@ angular.module('controllers', [])
             $scope.addPrescription = function (item) {
                 DataFactory.postPrescriptionData(item).then(function (success) {
                     console.log(success);
-                    $scope.item.medicine="";
-                    $scope.item.description="";
+                    $scope.item.medicine = "";
+                    $scope.item.description = "";
+                    $scope.loadPrescritions();
                 });
             };
 
             /**
              * get Prescriptions form API
              */
-            DataFactory.getPrescriptionData().then(function (prescription) {
-                console.log(prescription)
-                $scope.prescriptions = prescription;
-            });
-
+            $scope.loadPrescritions = function () {
+                DataFactory.getPrescriptionData().then(function (prescription) {
+                    console.log(prescription)
+                    $scope.prescriptions = prescription;
+                });
+            };
+            $scope.loadPrescritions();
             /**
              * edit item
              * @param index
@@ -74,7 +77,8 @@ angular.module('controllers', [])
                     console.log("update req success ", response);
                 }, function (response) {
                     console.log("update req failed ", response.data);
-                })
+                });
+                $scope.loadPrescritions();
             };
 
 
@@ -87,7 +91,8 @@ angular.module('controllers', [])
                     console.log("delete success ", response);
                 }, function (response) {
                     console.log("delete failed ", response.data);
-                })
+                });
+                $scope.loadPrescritions();
             };
 
 
@@ -107,14 +112,18 @@ angular.module('controllers', [])
                 }, function (error) {
                     console.log("error", error)
                 });
+                $scope.loadFeelings();
             };
             /**
              * get Feelings data form API
              */
-            DataFactory.getFeelingsData().then(function (feelings) {
-                console.log(feelings)
-                $scope.feelings = feelings;
-            });
+            $scope.loadFeelings = function () {
+                DataFactory.getFeelingsData().then(function (feelings) {
+                    console.log(feelings);
+                    $scope.feelings = feelings;
+                });
+            };
+            $scope.loadFeelings();
 
             /**
              * edit item
@@ -134,7 +143,8 @@ angular.module('controllers', [])
                     console.log("successfully update request send to db ", success);
                 }, function (error) {
                     console.log("can't send update request to db ", error);
-                })
+                });
+                $scope.loadFeelings();
             };
 
 
@@ -148,6 +158,7 @@ angular.module('controllers', [])
                 }, function (response) {
                     console.log("delete req failed ", response.data);
                 })
+                $scope.loadFeelings();
             };
 
 
@@ -163,17 +174,21 @@ angular.module('controllers', [])
                     console.log(success);
                     $scope.item.problem = "";
 
-                },function (error) {
+                }, function (error) {
                     console.log(error)
                 });
+                $scope.loadProblems();
             };
             /**
              * get Prescriptions form API
              */
-            DataFactory.getProblemData().then(function (problems) {
-                console.log(problems)
-                $scope.problems = problems;
-            });
+            $scope.loadProblems = function () {
+                DataFactory.getProblemData().then(function (problems) {
+                    console.log(problems);
+                    $scope.problems = problems;
+                });
+            };
+            $scope.loadProblems();
 
             /**
              * edit item
@@ -190,6 +205,7 @@ angular.module('controllers', [])
                 }, function (error) {
                     console.log("edit request failed", error);
                 });
+                $scope.loadProblems();
             };
 
 
@@ -202,8 +218,8 @@ angular.module('controllers', [])
                     console.log("delete success ", response);
                 }, function (response) {
                     console.log("delete failed ", response.data);
-
-                })
+                });
+                $scope.loadProblems();
             };
 
 
